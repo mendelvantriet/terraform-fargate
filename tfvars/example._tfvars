@@ -1,0 +1,30 @@
+name = "fargate-demo"
+region = "eu-west-1"
+
+registry = "...dkr.ecr.eu-west-1.amazonaws.com"
+image = "demo"
+tag = "slim"
+environment_variables = [
+  { "name": "MASTER"
+    "value": "local[1]"
+  },
+  { "name": "APP_NAME"
+    "value": "demo"
+  },
+  { "name": "INPUT_FILE"
+    "value": "example.parquet"
+  },
+  { "name": "OUTPUT_LOCATION"
+    "value": "s3a://bucket/example.parquet"
+  },
+  { "name": "SPARK_SUBMIT_ARGS"
+    "value": "--packages com.amazonaws:aws-java-sdk:1.12.132,org.apache.hadoop:hadoop-aws:3.2.0 --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem --conf spark.hadoop.fs.s3a.path.style.access=True --conf spark.hadoop.fs.s3a.aws.credentials.provider=com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper,com.amazonaws.auth.EnvironmentVariableCredentialsProvider,org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider --conf spark.executor.extraJavaOptions=-Dcom.amazonaws.services.s3.enableV4=true --conf spark.driver.extraJavaOptions=-Dcom.amazonaws.services.s3.enableV4=true"
+  }
+]
+
+bucket = "bucket"
+
+tags = {
+  Terraform = "true"
+  Environment = "dev"
+}

@@ -1,7 +1,5 @@
 # terraform-fargate
 
-This is unfinished business...
-
 Purpose of the code is to provision Fargate with a Task running a container. In the `example._tfvars` file are the variables that could be used to run a container with a spark job (which can be found at the [pyspark-parquet](https://github.com/mendelvantriet/pyspark-parquet) repository).
 
 ## The original excercise
@@ -13,4 +11,13 @@ Fargate does not have such a limit. And with spark, we don't have to worry much 
 ## Run
 
     terraform -chdir=stacks init -backend-config="../backends/demo.tf"
-    terraform -chdir=stacks plan -var-file="../tfvars/demo.tfvars"
+    terraform -chdir=stacks apply -var-file="../tfvars/demo.tfvars"
+
+## TODO
+
+- make sure the vpc endpoints work, so that the private subnet can be used
+- put the task definition in a separate stack
+- tighten up the policies
+- look into s3 endpoints and their relation to bucket policies
+
+
